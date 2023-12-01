@@ -1,8 +1,6 @@
 # Huffman Coding in python
 
 
-
-
 # Creating tree nodes
 class NodeTree(object):
 
