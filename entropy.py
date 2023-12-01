@@ -1,28 +1,62 @@
 import numpy as np
 from math import log, e
+import datetime
+import os
 
-def entropy(probabilities, base):
-  ent = 0.
+# compute entropy from probabilities of symbols
+def entropy_1(probabilities, base):
+    ent = 0.
 
-  # Compute entropy
-  base = e if base is None else base
-  for i in probabilities:
-    ent -= i * log(i, base)
+    # Compute entropy
+    base = e if base is None else base
+    for i in probabilities:
+        ent -= i * log(i, base)
 
-  return ent
+    return ent
+
 
 def entropy_of_text(labels, base=None):
-  """ Computes entropy of label distribution. """
+    """ Computes entropy of label distribution. """
 
-  n_labels = len(labels)
+    n_labels = len(labels)
 
-  if n_labels <= 1:
-    return 0
+    if n_labels <= 1:
+        return 0
 
-  value,counts = np.unique(labels, return_counts=True)
-  probs = counts / n_labels
-  n_classes = np.count_nonzero(probs)
+    value, counts = np.unique(labels, return_counts=True)
+    probs = counts / n_labels
 
-  if n_classes <= 1:
-    return 0
-  return entropy(probs, base)
+    return entropy_1(probs, base)
+
+
+# compute entropy from number of occurrences of symbols
+def entropy_2(symbols_distrib):
+    alphabet_size = sum(symbols_distrib)
+    ent = log(alphabet_size, 2)
+    sum_nlogn = 0
+    for d in symbols_distrib:
+        sum_nlogn += d * log(d, 2)
+    return ent - sum_nlogn/alphabet_size
+
+
+def create_test_list(list_len):
+    res = list(int.from_bytes(os.urandom(2), "big") + 1 for i in range(0, x))
+    return sorted(res, reverse=True)
+
+
+if __name__ == "__main__":
+    x = int(input('Enter number of elements in list: '))
+    start = datetime.datetime.now()
+    test_list = create_test_list(x)
+    end = datetime.datetime.now()
+    print('{} seconds to create list of {} elements'.format(end - start, x))
+
+    start = datetime.datetime.now()
+    print('entropy 1 is {}'.format(entropy_1(list(elem/sum(test_list) for elem in test_list), 2)))
+    end = datetime.datetime.now()
+    print('entropy 1 took {} to compute for {} elements'.format(end - start, x))
+
+    start = datetime.datetime.now()
+    print('entropy 2 is {}'.format(entropy_2(test_list)))
+    end = datetime.datetime.now()
+    print('entropy 2 took {} to compute for {} elements'.format(end - start, x))
