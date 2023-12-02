@@ -54,11 +54,13 @@ if __name__ == "__main__":
     print('{} seconds to create list of {} elements'.format(end - start, x))
 
     start = datetime.datetime.now()
-    print('entropy 1 is {}'.format(entropy_1(list(elem/sum(test_list) for elem in test_list), 2)))
     end = datetime.datetime.now()
     print('entropy 1 took {} to compute for {} elements'.format(end - start, x))
+    elements_sum = sum(test_list)
+    probs_list = list(elem/elements_sum for elem in test_list)
+    print('entropy 1 is {}'.format(entropy_1(probs_list, 2)))
 
-    start = datetime.datetime.now()
+    start_entropy_2 = datetime.datetime.now()
     print('entropy 2 is {}'.format(entropy_2(test_list)))
     end = datetime.datetime.now()
     print('entropy 2 took {} to compute for {} elements'.format(end - start, x))
