@@ -1,7 +1,8 @@
 import numpy as np
-from math import log, e
+from math import log, e, ceil
 import datetime
 import os
+
 
 # compute entropy from probabilities of symbols
 def entropy_1(probabilities, base):
@@ -40,7 +41,8 @@ def entropy_2(symbols_distrib):
 
 
 def create_test_list(list_len):
-    res = list(int.from_bytes(os.urandom(2), "big") + 1 for i in range(0, x))
+    nums_sizes = ceil(log(x, 256))
+    res = list(int.from_bytes(os.urandom(nums_sizes), "big") + 1 for i in range(0, x))
     return sorted(res, reverse=True)
 
 
