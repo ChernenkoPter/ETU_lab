@@ -31,12 +31,12 @@ def entropy_of_text(labels, base=None):
 
 
 # compute entropy from number of occurrences of symbols
-def entropy_2(symbols_distrib):
+def entropy_2(symbols_distrib, base=2):
     alphabet_size = sum(symbols_distrib)
-    ent = log(alphabet_size, 2)
+    ent = log(alphabet_size, base)
     sum_nlogn = 0
     for d in symbols_distrib:
-        sum_nlogn += d * log(d, 2)
+        sum_nlogn += d * log(d, base)
     return ent - sum_nlogn/alphabet_size
 
 
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     end_entropy_2 = datetime.datetime.now()
 
     print('{} to create list of {} elements'.format(end_create_list - start_create_list, x))
-    print("{} to compute probabilities list".format(end_compute_probabilities - start_compute_probabilities))
+    print('{} to compute probabilities list'.format(end_compute_probabilities - start_compute_probabilities))
     print('{} to compute entropy 1'.format(end_entropy_1 - start_entropy_1))
     print('{} to compute probabilities + entropy 1'.format(end_entropy_1 - start_compute_probabilities))
     print('{} to compute entropy 2 '.format(end_entropy_2 - start_entropy_2))
