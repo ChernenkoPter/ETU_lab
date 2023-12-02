@@ -46,21 +46,38 @@ def create_test_list(list_len):
     return sorted(res, reverse=True)
 
 
+# to test efficiency of functions tha compute entropy for random source
 if __name__ == "__main__":
     x = int(input('Enter number of elements in list: '))
-    start = datetime.datetime.now()
+    start_create_list = datetime.datetime.now()
     test_list = create_test_list(x)
-    end = datetime.datetime.now()
-    print('{} seconds to create list of {} elements'.format(end - start, x))
+    end_create_list = datetime.datetime.now()
 
-    start = datetime.datetime.now()
-    end = datetime.datetime.now()
-    print('entropy 1 took {} to compute for {} elements'.format(end - start, x))
+    start_compute_probabilities = datetime.datetime.now()
     elements_sum = sum(test_list)
     probs_list = list(elem/elements_sum for elem in test_list)
+    end_compute_probabilities = datetime.datetime.now()
+
+    start_entropy_1 = datetime.datetime.now()
     print('entropy 1 is {}'.format(entropy_1(probs_list, 2)))
+    end_entropy_1 = datetime.datetime.now()
 
     start_entropy_2 = datetime.datetime.now()
     print('entropy 2 is {}'.format(entropy_2(test_list)))
-    end = datetime.datetime.now()
-    print('entropy 2 took {} to compute for {} elements'.format(end - start, x))
+    end_entropy_2 = datetime.datetime.now()
+
+    print('{} to create list of {} elements'.format(end_create_list - start_create_list, x))
+    print("{} to compute probabilities list".format(end_compute_probabilities - start_compute_probabilities))
+    print('{} to compute entropy 1'.format(end_entropy_1 - start_entropy_1))
+    print('{} to compute probabilities + entropy 1'.format(end_entropy_1 - start_compute_probabilities))
+    print('{} to compute entropy 2 '.format(end_entropy_2 - start_entropy_2))
+
+# Пример вывода программы:
+# Enter number of elements in list: 100000000
+# entropy 1 is 26.296808008152645
+# entropy 2 is 26.29680800817682
+# 0:01:47.858514 to create list of 100000000 elements
+# 0:00:33.253834 to compute probabilities list
+# 0:00:12.771133 to compute entropy 1
+# 0:00:46.024975 to compute probabilities + entropy 1
+# 0:00:33.210892 to compute entropy 2
