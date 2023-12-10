@@ -6,9 +6,9 @@ def find_optimal_diadic_partition_group_sizes(words_to_counts, N_g_minmax, witho
     if N_g_minmax[1] > len(words_to_counts) - 1:
         N_g_minmax[1] = len(words_to_counts) - 1
 
-    result = list()
+    result = list()  # содержит множество пар "разбиение - средняя длина слова"
 
     # TODO реализовать поиск оптимального разбиения на диадические группы
 
     sorted(result.items(), key=lambda x: x[1], reverse=True)  # to get best partition into groups
-    return result[0]
+    return result[0][0]

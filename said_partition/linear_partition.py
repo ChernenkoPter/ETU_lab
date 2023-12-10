@@ -16,10 +16,10 @@ def find_optimal_linear_partition_group_sizes(words_to_counts, N_g_minmax):
         print("Error: unexpected minimal and maximum group sizes")
         return None
 
-    result = list()
+    result = list()  # содержит множество пар "разбиение - средняя длина слова"
     for N_g in range(N_g_minmax[0], N_g_minmax[1] + 1):  # create partition of N_g groups
         temp = find_optimal_linear_partition_for_size(words_to_counts, N_g)
         result.append((temp, partition_entropy(temp, words_to_counts)))
 
     sorted(result.items(), key=lambda x: x[1], reverse=True)  # to get best partition into groups
-    return result[0]
+    return result[0][0]
