@@ -42,11 +42,7 @@ def string_frequency(string):
     return freq
 
 
-if __name__ == "__main__":
-    string = 'BCAADDDCCACACAC'
-    freq = string_frequency(string)
-    nodes = freq
-
+def get_huffman_coding(nodes):
     while len(nodes) > 1:
         (key1, c1) = nodes[-1]
         (key2, c2) = nodes[-2]
@@ -56,7 +52,15 @@ if __name__ == "__main__":
 
         nodes = sorted(nodes, key=lambda x: x[1], reverse=True)
 
-    huffmanCode = huffman_code_tree(nodes[0][0])
+    return huffman_code_tree(nodes[0][0])
+
+
+if __name__ == "__main__":
+    string = 'BCAADDDCCACACAC'
+    freq = string_frequency(string)
+    nodes = freq
+
+    huffmanCode = get_huffman_coding(nodes)
 
     print(' Char | Huffman code ')
     print('----------------------')
